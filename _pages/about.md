@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hi, welcome to my personal website :)"
+title: "Thomas Sesmat"
 author_profile: true
 redirect_from: 
   - /about/
@@ -9,8 +9,9 @@ redirect_from:
 
 
 
-Hi, my name is Thomas Sesmat. I am a student engineer at [INSA Toulouse](https://www.insa-toulouse.fr/ "INSA Toulouse"), majoring in Applied Mathematics. Over the years, I have specialized in Machine Learning and Deep Learning.
-My research interest mainly focuses on developing more robust and interpretable deep learning algorithms. 
+Hi ! :) <br>
+I am a student engineer at [INSA Toulouse](https://www.insa-toulouse.fr/ "INSA Toulouse"), majoring in Applied Mathematics. Over the years, I have specialized in Machine Learning and Deep Learning.<br>
+My research interest mainly focuses on developing more robust and interpretable deep learning algorithms. <br>
 Outside of my studies, I love inventing all kinds of things and enjoy working on multiple projects. I naturally like to leverage machine learning and deep learning to bring these projects to life.
 
 If you are interested in collaborating or have ideas to share, please email me! 
