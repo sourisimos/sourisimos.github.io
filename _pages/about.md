@@ -22,6 +22,10 @@ News !
 ===
 
 <div style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"> 
-    <p> <B> 10/20/2024 </B> I was lucky enough to take part in the <a href = "https://www.cimi.univ-toulouse.fr/en/" >CIMI</a> Thematique School on high-dimensional machine learning and inference from 10/07 to 10/18! </p>
+
+  <p><b>10/25/2024</b> — Yesterday, I attended a very interesting conference on the intersection of classical music and AI, presented by <a href="https://fr.wikipedia.org/wiki/Jean-Fran%C3%A7ois_Zygel">Jean-François Zygel</a>. Stay tuned for an upcoming post on this topic!</p>
+
+  <p> <B> 10/20/2024 </B> I was lucky enough to take part in the <a href = "https://www.cimi.univ-toulouse.fr/en/" >CIMI</a> Thematique School on high-dimensional machine learning and inference from 10/07 to 10/18! </p>
+    
 </div>
 
