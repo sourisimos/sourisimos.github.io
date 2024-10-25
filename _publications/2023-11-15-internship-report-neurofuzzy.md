@@ -5,7 +5,7 @@ category: report
 permalink: /publication/2023-11-15-internship-report-neurofuzzy
 excerpt: 'This paper is the report on my 4-month internship at <a href="https://onera.fr/en">ONERA</a>.'
 date: 2023-11-15
-paperurl: 'https://www.gauthier-picard.info/files/report23sesmat.pdf'
+paperpath: '../files/Internship_report_ONERA.pdf'
 citation: 'T. Sesmat (2023). &quot;Internship report: Neurofuzzy network&quot;'
 ---
 
