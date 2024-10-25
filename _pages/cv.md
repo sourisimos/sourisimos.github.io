@@ -8,7 +8,7 @@ redirect_from:
 ---
 {% include base_path %}
 
-<div class="wordwrap"> <a href="{{ base_path }}/files/CV_Sesmat_research.pdf">Here</a> is a a downloadable version of my CV </div>
+<div class="wordwrap"> <a href="../files/CV_Sesmat_research.pdf">Here</a> is a a downloadable version of my CV </div>
 
 
 Education
