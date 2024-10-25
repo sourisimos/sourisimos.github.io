@@ -6,8 +6,10 @@ author_profile: true
 redirect_from:
   - /resume
 ---
-
 {% include base_path %}
+
+<div class="wordwrap"> <a href="{{ base_path }}/files/CV_Sesmat_research.pdf">Here</a> is a a downloadable version of my CV </div>
+
 
 Education
 ======
@@ -68,7 +70,7 @@ Project
   * Compare different SSL strategie on an Anomaly Detection downstream task
 
 
-* Film suggestion web-page (puthon, pytorch, docker) [pending]
+* Film suggestion web-page (python, pytorch, docker) [pending]
   * Implemente film suggestion according to custommers' habits 
 
 
