@@ -2,7 +2,7 @@
 title: "Neuro-fuzzy networks for inference transparency"
 collection: publications
 category: conferences
-permalink: /publication/2024-03-27-conferences-neuro-fuzzy.md
+permalink: /publication/2024-03-27-conferences-neuro-fuzzy
 excerpt: ''
 date: 2024/3/27
 venue: 'HyCHA&#39;24'
