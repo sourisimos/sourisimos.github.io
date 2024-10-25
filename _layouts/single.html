@@ -49,7 +49,7 @@ layout: default
 
         {% if page.citation and page.paperurl %}
           <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a href="{{ page.paperurl }}">Download here</a></p>
-        {% elsif page.citation & page.paperpath %}
+        {% elsif page.citation and page.paperpath %}
           <p style="font-size: smaller">Recommended citation: {{ post.citation }}<br /><a href="{{ page.paperpath }}">Download here </a> </p>
         {% elsif page.citation %}
           <p style="font-size: smaller">Recommended citation: {{ page.citation }}</p>
