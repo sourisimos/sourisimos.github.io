@@ -85,7 +85,7 @@ Skills & certification
   * Python
   * R
 * Technical content writing
-* English: TOEIC (score )
+* English: TOEIC (score 975/990)
 
 Publications
 ======
