@@ -24,7 +24,7 @@ News !
 
 <div style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"> 
 
-  <p><b>11/06/2024</b> — As promised, my new (and first!) blog post, <i>AI in Music: A Historic Review</i>, is out! 🎶  </p>
+  <p><b>11/06/2024</b> — As promised, my new (and first!) blog post, <i>AI in Music: A Historic Review</i>, is out! 🎶</p>
 
   <p><b>10/25/2024</b> — Yesterday, I attended a very interesting conference on the intersection of classical music and AI, presented by <a href="https://fr.wikipedia.org/wiki/Jean-Fran%C3%A7ois_Zygel">Jean-François Zygel</a>. Stay tuned for an upcoming post on this topic!</p>
 
