@@ -8,8 +8,9 @@ redirect_from:
 ---
 {% include base_path %}
 
-<div class="wordwrap"> <a href="../files/CV_Sesmat_research.pdf">Here</a> is a a downloadable version of my CV </div>
+<div class="wordwrap"><a href="../files/CV_Sesmat_research.pdf">Here</a> is a a downloadable version of my CV </div>
 
+===
 
 Education
 ======
@@ -20,8 +21,11 @@ Education
 * M.S. in Applied mathematics, INSA Toulouse, 2025 (expected)
   * Relevant course work : High Dimensional Deep Learning, AI Frameworks, Signal & Image processing, Machine Learning, Data Analysis, Statistical Modeling,  Continuous Optimization, Non-Differential Optimization, Advanced Probability, Stochastic processes
 * B.S. in Applied mathematics, INSA Toulouse, 2022
+* Classe préparatoire aux grandes écoles, Fabert High School, 2021
+  * Major in Physics & Chemistry
+  * Minor in Mathematics & Informatics 
 
-Work experience
+Work experiences
 ======
 
 * July – october 2023 : Research Intern 
@@ -36,7 +40,7 @@ Work experience
   * Supervisor: Paul Renould
 
 
-Volunteer experience
+Volunteer experiences
 ======
 
 * February - July 2023: Civic service in agroecology
@@ -55,7 +59,7 @@ Volunteer experience
   * National Student-Entrepreneur status
   * Duties included: Accounting and financial management, creation and running of treasury training courses
 
-Project
+Projects
 =====
 
 * Experimental analyses on a reLu-type network (python, keras) [pending]
@@ -71,7 +75,10 @@ Project
 
 
 * Film suggestion web-page (python, pytorch, docker) [pending]
-  * Implemente film suggestion according to custommers' habits 
+  * Predict the genre of a movie based on its plot or poster.
+  * Recommend movies similar to a given movie, using its plot or poster.
+  * Detect whether an image is a movie poster or not.
+  * Provide Dockerfiles to encapsulate each functionality for easy deployment.
 
 
 * Data analysis of Paris bike-sharing service (python, scikit-learn, R)
@@ -85,7 +92,9 @@ Skills & certification
   * Python
   * R
 * Technical content writing
-* English: TOEIC (score 975/990)
+* Languages : 
+  * French (Native)
+  * English (TOEIC score 975/990)
 
 Publications
 ======
@@ -95,7 +104,7 @@ Publications
   
 Award 
 ======
-* 1st place data challenge IA PAU 2023 (3000€ cash prize)
+* 1st place data challenge IA PAU 2023 (3000€ cash prize) - 
   Conceptualization and development of a technical solution for a speech video analysis tool
   
 
