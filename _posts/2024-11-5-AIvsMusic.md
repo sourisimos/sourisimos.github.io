@@ -8,16 +8,17 @@ tags:
   - AI
 ---
 
-This post is partly inspired by the lecture "AI vs AI: Artificial Intelligence vs Artistic Intelligence" by Jean-François Zygel, presented at the Halle aux Grains in Toulouse. With the author’s permission, we will explore the evolution of algorithmic music generation, tracing its origins to contemporary methods and future perspectives in AI for music.
+This post is partly inspired by the lecture "AI vs AI: Artificial Intelligence vs Artistic Intelligence" by Jean-François Zygel, presented at the Halle aux Grains in Toulouse, France. With the author’s permission, we will explore the evolution of algorithmic music generation, tracing its origins to contemporary methods and future perspectives in AI for music.
 
 Here, I'll provide a quick overview, but many links are available if you'd like to dive deeper into any topic. I hope you'll forgive the occasional use of Wikipedia; it often proves to be one of the best resources for gathering extensive, accessible, and free information. <br>
 Finaly, since music is fundamentally about listening, I've also included many videos with musical examples and, in some cases, explanatory commentary. Just click on 🎶. 
 
-Also,you can find a relatively up-to-date state of the art on music-related algorithms [here](https://carlosholivan.github.io/DeepLearningMusicGeneration/#figaro-generating-symbolic-music-with-fine-grained-artistic-control).
+Also, you can find a relatively up-to-date state of the art on music-related algorithms [here](https://carlosholivan.github.io/DeepLearningMusicGeneration/#figaro-generating-symbolic-music-with-fine-grained-artistic-control).
 
 ## Music as Algorithm: The Beginnings of Algorithmic Composition
 
-Since Antiquity, music has followed mathematical and structured principles, explaining why it was part of the [mathematical quadrivium](https://fr.wikipedia.org/wiki/Quadrivium) alongside arithmetic, geometry, and astronomy. However, modern algorithmic composition (or generative music) goes beyond simple rules: it involves works where the final creation “escapes” human intervention to some extent. We will also exclude strictly automatic compositions, where a machine performs a fully pre-programmed piece without human intervention, as well as purely random compositions.
+Since Antiquity, music has followed mathematical and structured principles, explaining why it was part of the [mathematical quadrivium](https://fr.wikipedia.org/wiki/Quadrivium) alongside arithmetic, geometry, and astronomy. However, modern algorithmic composition (or generative music) goes beyond following explicit rules: it involves works whose final creation “escapes” human intervention to some extent. 
+We will also exclude strictly automatic compositions, in which a machine executes an entirely pre-programmed piece without human intervention, as well as purely random compositions.
 
 
 <div style="float: right; margin-left: 10px;">
