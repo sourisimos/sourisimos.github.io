@@ -23,6 +23,9 @@ News !
 ===
 
 <div style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"> 
+  <p><b>13/05/2025</b> — Very first (small) is up: quick setup automation</p>
+
+  <p><b>01/03/2025</b> — Just starting new adventure at Telecom Paris x Deezer for my Master Internship 🥳</p>
 
   <p><b>11/06/2024</b> — As promised, my new (and first!) blog post, <i>AI in Music: A Historic Review</i>, is out! 🎶</p>
 

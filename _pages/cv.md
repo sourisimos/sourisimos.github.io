@@ -18,15 +18,23 @@ Education
   * Probabily
   * Optimization
   * Statistics
-* M.S. in Applied mathematics, INSA Toulouse, 2025 (expected)
+* M.S. in Applied mathematics, INSA Toulouse, 2025
   * Relevant course work : High Dimensional Deep Learning, AI Frameworks, Signal & Image processing, Machine Learning, Data Analysis, Statistical Modeling,  Continuous Optimization, Non-Differential Optimization, Advanced Probability, Stochastic processes
 * B.S. in Applied mathematics, INSA Toulouse, 2022
 * Classe préparatoire aux grandes écoles, Fabert High School, 2021
   * Major in Physics & Chemistry
   * Minor in Mathematics & Informatics 
 
+
 Work experiences
 ======
+* March 2025 – Januaty 2025 : Research Intern 
+  * ADASP group (Télécom Paris) x Deezer
+  * Duties included: 
+    * Critical analysis and enhancement of MIRA tools from MTG lab for detareplication detection
+    * Detection of copyrighted datas in generative model applied to music generation
+  * Supervisor: Pr. G. Peeters, G. Meseguer-Brocal
+
 
 * July – october 2023 : Research Intern 
   * ONERA
@@ -62,19 +70,19 @@ Volunteer experiences
 Projects
 =====
 
-* Experimental analyses on a reLu-type network (python, keras) [pending]
+* Experimental analyses on a reLu-type network (python, keras)
   * Set up an experiments to analyse the link between sample size and complexity of the target function in a RN.
     * Analyse the difference between the network output and the expected output depending on the inputs. 
   * Preliminary work to a theoretical to demonstrate an assertion
 
 
-* Bundle of deep-learning projects (python, tensorflow, pytorch) [pending]
+* Bundle of deep-learning projects (python, tensorflow, pytorch)
   * Define and train a network to identify the painter of a painting
   * Define and train a CVAE on Fashion-MNIST dataset
   * Compare different SSL strategie on an Anomaly Detection downstream task
 
 
-* Film suggestion web-page (python, pytorch, docker) [pending]
+* Film suggestion web-page (python, pytorch, docker)
   * Predict the genre of a movie based on its plot or poster.
   * Recommend movies similar to a given movie, using its plot or poster.
   * Detect whether an image is a movie poster or not.
@@ -105,6 +113,6 @@ Publications
 Award 
 ======
 * 1st place data challenge IA PAU 2023 (3000€ cash prize) - 
-  Conceptualization and development of a technical solution for a speech video analysis tool
+  Conceptualization and development of a technical solution for a speech & video analysis tool
   
 
