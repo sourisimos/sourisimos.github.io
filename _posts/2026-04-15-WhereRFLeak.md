@@ -10,7 +10,7 @@ tags:
   - ICML
 ---
 
-This post is meant to be a nice walkthrough of our [ICML 2026 paper](https://openreview.net/forum?id=Ty5X41WbJw), written with Gabriel Meseguer-Brocal and Geoffroy Peeters. The paper itself is fairly technical and mathematical, and I somehow managed to avoid spelling out most of the intuitions we actually had along the way... Yet beyond the love of maths and CS, the love of *understanding* is probably even more attractive, right? So here it is: hopefully a really vivid and pleasant blog post to explain those intuitions (and there are a lot of them, from a rope metaphor to spaghetti).
+This post is meant to be a nice walkthrough of our [ICML 2026 paper](https://openreview.net/forum?id=Ty5X41WbJw), written with Gabriel Meseguer-Brocal and Geoffroy Peeters. The paper itself is fairly abstract and mathematical, and I somehow managed to avoid spelling out most of the intuitions we actually had along the way... Yet beyond the love of maths and CS, the love of *understanding* is probably even more attractive, right? So here it is: hopefully a really vivid and pleasant blog post to explain those intuitions (and there are a lot of them, from a rope metaphor to spaghetti).
 
 ## What do we want to do?
 
@@ -18,25 +18,20 @@ First things first, let's start with what we wanted to do.
 
 Generative models are trained on enormous piles of data, a lot of it copyrighted, and that has made one question suddenly quite pressing. It has been showing up in lawsuits from [Getty against Stability](https://www.courtlistener.com/) to the [major record labels against Suno and Udio](https://www.musicbusinessworldwide.com/as-suno-and-udio-admit-training-ai-with-unlicensed-music-record-industry-says-theres-nothing-fair-about-stealing-an-artists-lifes-work/): what does a model actually keep about what it was trained on?
 
-There is a whole field, with many cool figures, trying to tackle this question: *memorization*.
-
-Yet there isn't just one kind of memorization. The obvious worry (and the main focus for now) is verbatim memorization, the model handing back a training image or a melody note for note, [like this one from Carlini et al.](https://arxiv.org/pdf/2301.13188) It is very impressive, but it is also rather rare, since it only happens to a handful of examples among tens of thousands. So instead of catching memorization at generation time, you can also look for it *inside* the model, where it takes a subtler form. A model can treat its training data differently from data it has never seen, reconstructing it a little more faithfully, behaving a little differently near it, following a trajectory a bit more specific to it, all without ever reproducing it.
+There is a whole field, with many cool figures, trying to tackle this question: *memorization*. Importantly, there isn't just one kind of memorization. The obvious one (and the main focus for now) is verbatim memorization, the model handing back a training image or a melody note for note, [like this one from Carlini et al.](https://arxiv.org/pdf/2301.13188). It is very impressive, but it is also rather rare, since it only happens to a handful of examples among tens of thousands. Instead of catching memorization at generation time, you can also look for it *inside* the model, where it takes a subtler form. A model can treat its training data differently from data it has never seen, reconstructing it a little more faithfully, behaving a little differently near it, following a trajectory a bit more specific to it, all without ever reproducing it.
 
 Since "memorization" usually points to the verbatim kind, and to keep things clearly separated, we named this measurable asymmetry the **membership signal**: any trace you can read off a model that tells you whether a given sample was likely in its training set. I insist on one thing: it is not a fixed mathematical definition but a *concept*, anything that leaks information about whether a data point belonged to the training set.
 
-And here is something often misunderstood, and what makes the whole memorization story (verbatim and membership signal alike) so tricky: you can train a model that has clearly absorbed a lot about its data while its loss curves look perfectly healthy, with no overfitting, validation dropping smoothly, nothing to see. So the question is simple: if it isn't on the loss curve, is there a *where* in the model's behaviour that could be hiding this information?
+Something often misunderstood, and what makes the whole memorization story (verbatim and membership signal alike) so tricky is that you can train a model that has clearly absorbed a lot about its data while its loss curves look perfectly healthy, with no overfitting, validation dropping smoothly, nothing to see. So the question is: if it isn't on the loss curve, is there a *where* in the model's behaviour that could be hiding this information?
 
 ## Just a bit of explanation on Rectified Flow / Flow Matching
-
-Before getting to the core, let me quickly recall the learning paradigm of Flow Matching.
 
 Memorization phenomena are so subtle that techniques are usually tailored to a specific type of model: DDIM/DDPM, GANs, [Rectified Flows](https://arxiv.org/abs/2209.03003) / [Flow Matching](https://arxiv.org/abs/2210.02747)... Those last ones are the ones we focused on.
 
 > From now on I'll just say Flow Matching for both Rectified Flow and Flow Matching. They are not *eeexactly* the same, but I'm quite sure it'll be clear enough, and clearly less verbose. One other thing: here I am **not** talking about the Reflow procedure.
 
-You are probably aware that Flow Matching is a superstar (... even if its time may be coming, with one-step generation paradigms like MeanFlow or Shortcut models) behind systems like [Stable Audio](https://arxiv.org/abs/2407.14358), [FLUX](https://blackforestlabs.ai/), and [Stable Diffusion 3](https://arxiv.org/abs/2403.03206).
-
-Here, we focus on the *linear* interpolation version. Pick a noise point $x_0$ and a data point $x_1$, draw the straight line between them, and a point on that line is $x_\lambda = (1-\lambda) x_0 + \lambda x_1$. Here $\lambda$ says how far along you are: $\lambda = 0$ is pure noise, $\lambda = 1$ is the data. The model's whole job is to look at a point on this line and predict the *direction* that carries it toward the data. At generation time you start from noise and move along the path with small explicit Euler steps, and the model hands you the direction at each one.
+Before getting to the core, let me quickly recall the learning paradigm of Flow Matching. You are probably aware that It is a superstar (... even if its time may be coming, with one-step generation paradigms like MeanFlow or Shortcut models) behind systems like [Stable Audio](https://arxiv.org/abs/2407.14358), [FLUX](https://blackforestlabs.ai/), and [Stable Diffusion 3](https://arxiv.org/abs/2403.03206).
+Here, we focus on the *linear* interpolation version. Pick a noise point $$x_0$$ and a data point $x_1$, draw the straight line between them, and a point on that line is $$x_\lambda = (1-\lambda) x_0 + \lambda x_1$$. Here $$\lambda$$ says how far along you are: $$\lambda = 0$$ is pure noise, $$\lambda = 1$$ is the data. The model's whole job is to look at a point on this line and predict the *direction* that carries it toward the data. At generation time you start from noise and move along the path with small explicit Euler steps, and the model hands you the direction at each one.
 
 Basically, imagine you are a Noise, at home (i.e. in your so-cosy Gaussian-Distribution City) and you want to go to your bakery (i.e. in Latent Representation City, a very famous one) to buy a baguette (you are a French Noise). But your GPS only gives you the DIRECTION you should head in. So what you do is check the GPS, walk a bit, check again to see if it changed, and so on. And this GPS didn't come from nowhere: you and your Noise friends trained it beforehand by going from many places to many others, and each time, while on your way, you always fed it the straightest direction toward your destination.
 
@@ -50,9 +45,11 @@ I actually did a whole blog post on RF / FM, so make sure to check it if you nee
 
 Finally (and I promise, after this we're done with the setup), let me describe the probe itself.
 
-Take one data point, from the training set or the held-out set, mix it linearly with noise to land at some position $\lambda$ on the path, let the model predict the direction from there, take one step, and reconstruct where it thinks the data should be. Compare that to the true point: the distance is the model's error at that position. That is just the Flow Matching loss itself, read at a single $\lambda$ instead of averaged over all of them:
+Take one data point, from the training set or the held-out set, mix it linearly with noise to land at some position $$\lambda$$ on the path, let the model predict the direction from there, take one step, and reconstruct where it thinks the data should be. Compare that to the true point: the distance is the model's error at that position. That is just the Flow Matching loss itself, read at a single $\$lambda$$ instead of averaged over all of them:
 
-$$\mathcal{L}(\lambda) = \mathbb{E}\big[\, \lVert v_\theta(x_\lambda, \lambda) - v \rVert^2 \,\big]$$
+$$
+\mathcal{L}(\lambda) = \mathbb{E}\big[\, \lVert v_\theta(x_\lambda, \lambda) - v \rVert^2 \,\big]
+$$
 
 Now, it's worth pausing on what this loss actually contains, because it's the key to everything after. A little algebra splits it into three parts:
 
@@ -76,7 +73,7 @@ And that's the whole idea: the train-test gap is a subtraction *designed* to iso
 
 ## The observation that started it all
 
-So now we had a clean setup and a way to measure this bias, but we genuinely didn't know what it would look like. Maybe a flat line, if there's no bias. Maybe a bump near $\lambda = 1$, close to the data, where you'd naively expect memorization to live. Maybe noise.
+So now we had a clean setup and a way to measure this bias, but we genuinely didn't know what it would look like. Maybe a flat line, if there's no bias. Maybe a bump near $$\lambda = 1$$, close to the data, where you'd naively expect memorization to live. Maybe noise.
 
 Instead, in every single configuration we tried, the gap traced the same curve: a **bell**. Flat and near-zero at both ends of the path, rising to one clean peak somewhere in the middle.
 
@@ -105,14 +102,13 @@ Near the ends, this is easy, and for the same reason at both. At the start, out 
 The middle is where it breaks. There, your position sits in the crowded central square, the spot where trips coming from every home and heading to every bakery all cross. The same location is compatible with dozens of different directions, and no simple rule can tell which one is yours. Should I take this road or that one? Genuinely hard to say, and it's exactly here that knowing a shortcut, or the one right answer, would save you the most.
 
 
-OK MAIS LA ON EXPLIQUE UN PEU DEJA LE FAIT QU'ON A QUE L'INFO LINEAIRE LA ALORS QU4ON DIT QU4ON EN PARLE QU'APRES. ON PEUT PAS L4ADAPTER CA ? 
-That "simple rule" is the key word, because *simple* here means *linear*: reading your direction straight off your position. It works at the ends and breaks in the middle, and this is exactly the pinch of the hourglass, where the strands crush together and run parallel. So there's a *region* on the path (not a single point, and it grows toward the middle) where the linear relationship between position and direction all but vanishes. And in the clean Gaussian case we can even compute where that region sits *in closed form*, from the variances of the noise and the data alone, with nothing about the model in it.
+That "simple rule" is the important part, but let me keep the precise meaning of it for the next section. For now, the picture is enough: there is a region on the path, not a single point, where position becomes a much worse guide to direction. In the clean Gaussian case, we can even compute where that region sits *in closed form*, from the variances of the noise and the data alone, with nothing about the model in it.
 
-> The signal peaks where the model has the least information, and it leaks the most precisely where it knows the least.
+> The signal peaks where the model has the least useful guidance from position alone.
 
-That's the part I find genuinely surprising, and it's worth sitting with, because the naive expectation could easily be the opposite. You'd think a model leaks most where it is the less developpe to grow its advantage over time: at the very begining, where it don't have any information about the data, but it turns out to be a region where the model know quite precisely where he have to got. 
+That's the part I find genuinely surprising, and it's worth sitting with, because the naive expectation could easily be different. You might expect the model to leak most where it has had the clearest opportunity to gain an advantage over time, or maybe right at the beginning, where everything looks like noise. But near the noise end, the direction is actually quite structured: the data cloud sits roughly in one place, so the model still has a fairly good idea of where to go. The more confusing region is not the pure-noise end, but the crowded middle.
 
-But I've been a little sloppy on purpose. I kept saying the model runs out of *information*, when what really runs out is one particular kind of it. Fixing that sloppiness is another really cool piece of the paper, so it deserves its own section.
+Still, I've been a little sloppy on purpose. I kept saying the model runs out of *information*, when what really runs out is one particular kind of it. Fixing that sloppiness is another really cool piece of the paper, so it deserves its own section.
 
 ## Why the leak has to exist
 
@@ -130,7 +126,7 @@ Here's the trap, and it's (one of) the hearts of the paper. A single French Nois
 
 So when the model reaches for the useful turns, the ones that find the right neighbourhood, it can't help but follow some of them all the way to the door. Fitting that last, useless bit of precision is the *price* of learning the real city, and a door that belongs to a single trip is exactly a trace of that trip having been walked, sitting only on the samples the model actually saw. That is the membership signal.
 
-This is why it differs from overfitting. It's not a bug you patch with more dropout. It's baked into what learning nonlinear structure means at all, and it concentrates at the pinch, because that is the one place the model has no linear alternative to fall back on.
+This is also why I would not describe it as ordinary overfitting. It is not just a training pathology that disappear once you add a bit more regularization; it is tied to the way the model learns the transport problem itself. It's baked into what learning nonlinear structure means at all, and it concentrates at the pinch, because that is the one place the model has no linear alternative to fall back on.
 
 ## Why nothing shows up on the dashboard
 
@@ -154,13 +150,13 @@ Its sides are our three terms: the **approximation error** (how far the model is
 
 That word, *alignment*, is the key. The membership signal is not simply the model being more wrong on its training data. Standard metrics mostly see magnitudes: how large the error is on average. But the signal lives in a *correlation* between the model's error and the sample-specific residual. Two errors can have almost the same size while differing in orientation. The leak is not a louder error; it is a biased direction. Same-length arrow, different angle, and nobody was looking at the angle.
 
-Now compare training points to held-out points. On held-out data, the model has never seen those sample-specific residuals, so there is no systematic reason for its error to align with them: the cross-term is essentially zero. On training data, however, the model was fitted on those very residuals, so a small alignment appears. Meanwhile the other two sides of the triangle behave the same on seen and unseen points (this is where Assumption 1 finally pays off), so they cancel in the difference.
+Now compare training points to held-out points. On held-out data, the model has never seen those sample-specific residuals, so there is no systematic reason for its error to align with them: the cross-term is essentially zero. On training data, however, the model was fitted on those very residuals, so a small alignment appear. Meanwhile the other two sides of the triangle behave the same on seen and unseen points (this is where Assumption 1 finally pays off), so they cancel in the difference.
 
 > Take the train/held-out difference, and everything cancels except the term that carries membership. The gap *is* the membership signal.
 
 Once the gap reduces to this cross-term, the rest becomes a question of location: where along the path should that term be largest?
 
-This is where the Gaussian calculation comes in. In the clean Gaussian case, the optimal predictor is provably linear, so studying a linear model isn't a simplifying approximation, it's the exact object the network is trying to reach. The membership signal then turns out to be proportional to the *irreducible variance*, the part of the velocity that no linear rule can predict from position. And that variance is largest exactly where the linear information vanishes: at the pinch of the hourglass. The bell shape, the peak location, and the $1/n$ decay all drop out of that one proportionality.
+This is where the Gaussian calculation comes in. In the clean Gaussian case, the optimal predictor is provably linear, so studying a linear model isn't a simplifying approximation, it's the exact object the network is trying to reach. The membership signal then turns out to be proportional to the *irreducible variance*, the part of the velocity that no linear rule can predict from position. And that variance is largest exactly where the linear information vanishes: at the pinch of the hourglass. The bell shape, the peak location, and the $$1/n$$ decay all drop out of that one proportionality.
 
 **Why a Gaussian story for a real transformer, though?** This is the move that needs justifying. Two reasons. First, spectral bias: the network learns the linear part first, so it really does defer the nonlinear scramble to where the linear signal dies. Second, we work in the latent space of an autoencoder, and those latents are *built* to be roughly Gaussian and isotropic, whether through an explicit KL penalty or through bounded activations like tanh. So the assumption our theory needs is approximately satisfied by construction, which is why the closed-form peak actually lands on real data.
 
@@ -178,7 +174,7 @@ The most useful stress test is the case where the closed-form location does *not
 
 ## Turning it into an attack
 
-If the signal is real, it should be exploitable, so as a proof of concept we made it into one. Feed the full per-$\lambda$ error profile of a sample into a small classifier and ask it: member or not? Because the profile encodes the whole shape of the bell, it's far more informative than any single measurement, and as far as we know it's the first membership inference attack designed specifically for Flow Matching, comfortably beating attacks ported over from the diffusion literature ([SecMI](https://arxiv.org/abs/2302.01316), [PIA](https://arxiv.org/abs/2308.06405)).
+If the signal is real, it should be exploitable, so as a proof of concept we made it into one. Feed the full per-$$\lambda$$ error profile of a sample into a small classifier and ask it: member or not? Because the profile encodes the whole shape of the bell, it's far more informative than any single measurement, and as far as we know it's the first membership inference attack designed specifically for Flow Matching, comfortably beating attacks ported over from the diffusion literature ([SecMI](https://arxiv.org/abs/2302.01316), [PIA](https://arxiv.org/abs/2308.06405)).
 
 The point isn't the attack itself, but the confirmation that the structure we derived on a whiteboard translates into a practical, measurable risk.
 
