@@ -1,6 +1,6 @@
 ---
 title: 'A (not so) short and (yet very) intuitive view of our article Where Rectified Flow Leaks'
-date: 2026-04-15
+date: 2026-08-03
 permalink: /posts/2026/04/WhereRFLeak/
 excerpt: "The original paper can be a bit off-putting, yet I believe the ideas & intuitions behind it are (humbly) crazy cool. So here is a blog post that I hope is fun to read, with everything we did in our paper :)"
 tags:
@@ -10,7 +10,7 @@ tags:
   - ICML
 ---
 
-This post is meant to be a nice walkthrough of our [ICML 2026 paper](#), written with Gabriel Meseguer-Brocal and Geoffroy Peeters. The paper itself is fairly technical and mathematical, and I somehow managed to avoid spelling out most of the intuitions we actually had along the way... Yet beyond the love of maths and CS, the love of *understanding* is probably even more attractive, right? So here it is: hopefully a really vivid and pleasant blog post to explain those intuitions (and there are a lot of them, from a rope metaphor to spaghetti).
+This post is meant to be a nice walkthrough of our [ICML 2026 paper](https://openreview.net/forum?id=Ty5X41WbJw), written with Gabriel Meseguer-Brocal and Geoffroy Peeters. The paper itself is fairly technical and mathematical, and I somehow managed to avoid spelling out most of the intuitions we actually had along the way... Yet beyond the love of maths and CS, the love of *understanding* is probably even more attractive, right? So here it is: hopefully a really vivid and pleasant blog post to explain those intuitions (and there are a lot of them, from a rope metaphor to spaghetti).
 
 ## What do we want to do?
 
