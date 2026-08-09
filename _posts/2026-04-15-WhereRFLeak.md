@@ -37,7 +37,7 @@ Basically, imagine you are a Noise, at home (i.e. in your so-cosy Gaussian-Distr
 
 Well, congratulations: if you were an extra-dimensional point, you just trained your own Flow Matching GPS using the linear interpolation path!
 
-![The interpolation path](/images/rf-leak/01_interpolation_path.svg)
+![The interpolation path](/images/posts/2026-04-15-WhereRFLeak/flow_matching_explain.png)
 
 I actually did a [whole blog post](https://thomlapom.github.io/posts/2025/11/UntangFBGM/) on RF / FM and the diffusion based generative paradigme, so make sure to check it if you need a reminder. ;)
 
@@ -84,7 +84,7 @@ And that's the whole idea: the train-test gap is a subtraction *designed* to iso
 So now we had a clean setup and a way to measure this bias, but we genuinely didn't know what it would look like. Maybe a flat line, if there's no bias. Maybe a bump near $$\lambda = 1$$, close to the data / noise or even both? 
 Instead, in every single configuration we tried, the gap traced the same curve: *a bell*. Flat and near-zero at both ends of the path, rising to one clean peak somewhere in the middle.
 
-![The bell-shaped train-test gap](/images/rf-leak/02_bell_curve.svg)
+![The bell-shaped train-test gap](/images/posts/2026-04-15-WhereRFLeak/belle_shape_and_grow.png)
 
 It came back for audio and for images, for transformers and UNets, across latent spaces and noise levels. That kind of stubbornness is usually the sign of something structural underneath, and it's exactly what pushed us from "we found a nice measurement" to "we need to explain *why*". *Why* a bell at all, and *Why* does it peak in the middle?
 
@@ -100,7 +100,7 @@ Now pull the two clouds apart and look at the bundle from the side. Because each
 
 And this bundle isn't only a picture of the data. It's essentially the flow field the model ends up learning: at each point in space, the spaghetti strands passing through are exactly what tell it which way to push. So the shape of the bundle *is* the shape of the model's job, and what an interesting coincidence that the pinch of the hourglass seems to sit at the same place as the peak of the error, no?
 
-![The hourglass](/images/rf-leak/03_hourglass.svg)
+![The hourglass](/images/posts/2026-04-15-WhereRFLeak/widding_spaghetty.png)
 
 Now think about the model's job at each point: given your position, predict your direction.
 
@@ -145,25 +145,26 @@ So the signal is always there, we understand why it looks like this and why it h
 
 **Masking.** This one is subtler. Early in training the model is still learning the generalizable structure, and that lowers *both* the training and the validation loss together. Underneath, on the training side, the leak term is quietly growing, but it is buried under the much larger gains from generalization. On the validation side, the leak term is absent, since the model never saw those sample-specific residuals. So validation keeps dropping and looks perfectly healthy, while the membership signal accumulates silently.
 
-![Masking](/images/rf-leak/05_masking.svg)
+![Masking](/images/posts/2026-04-15-WhereRFLeak/loss_evolution.png)
 
 
 ## What the gap is actually measuring
 
 A bit more explanation, but hang in there, we're getting close to the end.
 
-To understand fully what the gap is measuring, let's finally cash in that cross-term I asked you to keep in mind at the very beginning.
+To understand what the gap is measuring, we need to come back to the decomposition I mentioned earlier.
 
-Flow Matching is trained by least squares, so the loss is a squared distance, and any squared distance can be decomposed geometrically. Draw the model's prediction, the optimal prediction, and the true target as the three corners of a triangle:
+Flow Matching is trained with a mean squared error. If we insert the optimal predictor between the model prediction and the true target, the prediction error can be written as the squarred sum of two vectors: the model's **approximation error**, and the **irreducible residual**, meaning the sample-specific part of the target that cannot be inferred from the current position alone.
 
-![The triangle of the three loss terms](/images/rf-leak/06_triangle.svg)
+![The triangle of the loss decomposition](/images/posts/2026-04-15-WhereRFLeak/loss_decomposition.png)
 
-Its sides correspond to three terms: the **approximation error** (how far the model is from the optimal predictor), the **irreducible noise** (the sample-specific residual that no predictor can infer from position alone), and the **cross-term** (how much the model's error lines up with that residual).
+Since the loss is the squared norm of that total error, expanding it gives two squared norms plus a cross-term that measures how aligned the two vectors are.
 
-That cross-term is the whole game, because it's the only one of the three that can tell a member from a non-member. On held-out data, the model has never seen those sample-specific residuals, so there's no reason for its error to line up with them: the cross-term is essentially zero. On training data, the model was fitted on those very residuals, so a small alignment appears. Meanwhile the other two terms behave the same on seen and unseen points (this is where Assumption 1 finally pays off), so they cancel in the difference.
+That alignment is where membership can appear. On held-out data, the model has never seen the residual attached to that point, so the alignment has no systematic direction and tends to average out. On training data, the model was fitted on those residuals, so a  directional bias remains. The other two terms mostly behave similarly on seen and unseen points, so the train/held-out difference isolates this alignment term.
 
-So the gap isn't just a convenient diagnostic. Once those two innocent terms drop out, what's left *is* the membership signal we were trying to isolate. And where along the path is it largest? If you didn't skip straight to this line, you already know: at the pinch of the hourglass.
+![Value of the cross-term](/images/posts/2026-04-15-WhereRFLeak/loss_train_untrain.png)
 
+As you can see now, the gap is not just a convenient diagnostic: what's left *is* the membership signal we were trying to isolate. And where along the path is it largest? If you didn't skip straight to this line, you already know it is at the pinch of the hourglass.
 
 
 ## From intuition to a real prediction
@@ -200,7 +201,7 @@ This is reassuring, because it connects the experimental peak back to the mechan
 
 ## A small note on a common training trick
 
-There is also a nice connection with something people already do in practice. In modern Flow Matching systems, the middle of the path is often treated as especially important, and some empirical timestep-weighting schemes put more emphasis there. The Stable Diffusion 3 paper, for instance, recommends this, although the intuition behind it is not always made very explicit.
+There is also a nice connection with something people already do in practice. In modern Flow Matching systems, the middle of the path is often treated as especially important, and some empirical timestep-weighting schemes put more emphasis there. The Stable Diffusion 3 paper, for instance, recommends this, although the intuition behin d it is not always made very explicit.
 
 The picture from this post gives one possible way to think about it. The middle is where the hourglass pinches. It is the region where the simple, almost linear guidance becomes weakest, so the model has to learn the more delicate part of the transport map. In that sense, putting more effort there is not so surprising: it is where the model is asked to resolve the most ambiguous part of the path.
 
