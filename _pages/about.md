@@ -10,9 +10,8 @@ redirect_from:
 
 Hi! :)
 
-I'm a Research Scientist at [Deezer Research](https://research.deezer.com), working on the general understanding of generative models, especially working toward making these crazy things safe and respectful for Arts and Artists. My (AI-oriented) topics of interest are:
+I'm a Research Scientist at [Deezer Research](https://research.deezer.com), working on the general understanding of generative models, especially working toward making these crazy things safe and respectful for Arts and Artists. For now, my (AI-oriented) topics of interest are:
 - Memorization in generative models
-- Unlearning
 - AI / deepfake detection
 
 My work sits at the intersection of theoretical characterization and empirical observation.
@@ -28,6 +27,8 @@ News !
 ===
 
 <div style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"> 
+
+  <p><b>10/08/2026</b> — New blog post about our <a href="https://openreview.net/forum?id=Ty5X41WbJw">ICML paper</a>. It took more time than expected, but I'm very happy with the result :))</p>
 
   <p><b>20/07/2026</b> — Update of my previous blog post about diffusion models! I'm now talking about Mean Flow, Shortcut Models and IMM !</p>
 
