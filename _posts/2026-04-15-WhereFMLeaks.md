@@ -1,7 +1,7 @@
 ---
-title: 'A (not so) short and (yet very) intuitive view of our article Where Rectified Flow Leaks'
+title: 'A (not so) short and (yet very) intuitive view of our article Where Flow Matching Leak'
 date: 2026-08-03
-permalink: /posts/2026/04/WhereRFLeak/
+permalink: /posts/2026/04/WhereFMLeak/
 excerpt: "The original paper can be a bit off-putting, yet I believe the ideas & intuitions behind it are (humbly) crazy cool. So here is a blog post that I hope is fun to read, with everything we did in our paper :)"
 tags:
   - Generative Models
@@ -24,9 +24,9 @@ Since "memorization" usually points to the verbatim kind, and to keep things cle
 
 To round out the context, there is an important point that is often misunderstood. What makes the broader memorization question, whether verbatim or the membership signal, so difficult is that you can train a model that has clearly absorbed a great deal of information from its training data while its loss curves still look perfectly healthy: no signs of overfitting, and a validation loss that decreases smoothly. There is seemingly nothing to see. So the whole point is: if this information does not show up in the loss curve, is there a place in the model’s behavior where it might be hiding?
 
-## A quick reminder on Rectified Flow / Flow Matching
+## A quick reminder on Flow Matching / Rectified Flow
 
-Memorization phenomena are so subtle that techniques are usually tailored to a specific type of model: DDIM/DDPM, GANs, [Rectified Flows](https://arxiv.org/abs/2209.03003) / [Flow Matching](https://arxiv.org/abs/2210.02747)... Those last ones are the ones we focused on.
+Memorization phenomena are so subtle that techniques are usually tailored to a specific type of model: DDIM/DDPM, GANs,  [Flow Matching](https://arxiv.org/abs/2210.02747) / [Rectified Flows](https://arxiv.org/abs/2209.03003)... Those last ones are the ones we focused on.
 
 > From now on I'll just say Flow Matching for both Rectified Flow and Flow Matching. They are not *eeexactly* the same, but I'm quite sure it'll be clear enough, and clearly less verbose. One other thing, here I am not talking about the Reflow procedure.
 
