@@ -34,7 +34,7 @@ News !
 
   <p><b>01/06/2026</b> — I joined <a href="https://research.deezer.com/">Deezer Research</a> 💜 as a Research Scientist. How crazy!!</p>
 
-  <p><b>18/04/2026</b> — I will attend ICML 2026 in Seoul to present our paper "<a href="https://openreview.net/forum?id=Ty5X41WbJw&referrer=%5BAuthor%20Console%5D%28%2Fgroup%3Fid%3DICML.cc%2F2026%2FConference%2FAuthors%23your-submissions%29">Where Rectified Flow Leaks</a>"</p>
+  <p><b>18/04/2026</b> — I will attend ICML 2026 in Seoul to present our paper "<a href="https://openreview.net/forum?id=Ty5X41WbJw&referrer=%5BAuthor%20Console%5D%28%2Fgroup%3Fid%3DICML.cc%2F2026%2FConference%2FAuthors%23your-submissions%29">Where Flow Matching Leaks</a>"</p>
 
   <p><b>28/02/2026</b> — I am now officially an applied mathematics engineer :))</p>
 
