@@ -1,7 +1,7 @@
 ---
 title: 'A (not so) short and (yet very) intuitive view of our article Where Flow Matching Leak'
 date: 2026-08-03
-permalink: /posts/2026/04/WhereFMLeak/
+permalink: /posts/2026/04/WhereFMLeaks/
 excerpt: "The original paper can be a bit off-putting, yet I believe the ideas & intuitions behind it are (humbly) crazy cool. So here is a blog post that I hope is fun to read, with everything we did in our paper :)"
 tags:
   - Generative Models
