@@ -37,7 +37,7 @@ Basically, imagine you are a Noise, at home (i.e. in your so-cosy Noise-Distribu
 
 Well, congratulations: if you were an extra-dimensional point, you just trained your own Flow Matching GPS using the linear interpolation path!
 
-![The interpolation path](/images/posts/2026-04-15-WhereFMLeakS/flow_matching_explain.png)
+![The interpolation path](/images/posts/2026-04-15-WhereFMLeaks/flow_matching_explain.png)
 
 I actually did a [whole blog post](https://thomlapom.github.io/posts/2025/11/UntangFBGM/) on RF / FM and the diffusion based generative paradigme, so make sure to check it if you need a reminder. ;)
 
